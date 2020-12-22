@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { auth } from "./firebase";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser,selectUser } from "./features/user/userSlice";
+import { login, logout, selectUser } from "./features/user/userSlice";
 
 function Copyright() {
   return (
@@ -54,24 +54,6 @@ const SignUp = () => {
   const [email, setemail] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        console.log(authUser);
-       
-
-        dispatch(setUser({ user: authUser }));
-
-      } else {
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [username]);
 
   const sign = (event) => {
     auth
@@ -82,7 +64,7 @@ const SignUp = () => {
         });
       })
       .catch((err) => alert(err.message));
-
+    dispatch(logout());
     history.push("/login");
   };
 
