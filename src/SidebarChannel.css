@@ -1,18 +1,13 @@
 .chan:hover > h4 {
-  color: white;
-  background-color: #40464b;
+  color: black;
+  background-color: rgb(248, 244, 244);
 }
 
 .chan > h4 {
   display: flex;
-  padding-left: 15px;
+  padding: 14px;
   align-items: center;
-  background-color: #2f3135;
+  padding-left: 50px;
   color: gray;
   cursor: pointer;
-}
-
-.chan__hash {
-  font-size: 30px;
-  padding: 8px;
 }
