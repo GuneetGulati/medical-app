@@ -14,7 +14,7 @@ function SidebarChannel({ id, channelName, e }) {
 
   return (
     <div onClick={cHandler} className="chan">
-      <h4>{channelName}</h4>
+      <h6>{channelName}</h6>
     </div>
   );
 }
