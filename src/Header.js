@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/user/userSlice";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import { auth } from "./firebase";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,13 +12,14 @@ const Header = () => {
   const history = useHistory();
 
   const logouut = () => {
-    dispatch(logout());
+    auth.signOut();
 
     history.push("/");
   };
 
   return (
     <div className="header">
+      
       <div className="header__left"></div>
 
       <div className="header__right">
