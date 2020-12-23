@@ -1,4 +1,11 @@
 .app {
-    display: flex;
-  }
-  
+  display: flex;
+}
+
+.one {
+  margin: 25px;
+}
+
+.two {
+  margin: 25px;
+}

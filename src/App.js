@@ -8,11 +8,14 @@ import SignUp from "./SignUp";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/user/userSlice";
 import {auth} from "./firebase";
+import { Link} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Doctors from "./Doctors"
 
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
+   
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -50,13 +53,19 @@ const App = () => {
             <SignUp />
           </Route>
 
-          <Route path="/patient/:nme/dashboard">
+          <Route path="/patient/:nme/profile">
             <Sidebar />
             <Main />
           </Route>
 
+          <Route path="/doctors">
+            <Doctors />
+          </Route>
+
           <Route path="/" exact>
-            <h1>hello</h1>
+           
+            <Link className="one" to="/login">Login</Link>
+            <Link className="two" to="/signup">Signup</Link>
           </Route>
         </Switch>
       </div>
