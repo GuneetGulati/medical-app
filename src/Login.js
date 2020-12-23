@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundImage: "",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -76,7 +76,8 @@ export default function SignInSide() {
     auth.signInWithEmailAndPassword(email, password).catch((err) => {
       alert(err.message);
     });
-    history.push(`/patient/${user.uid}/dashboard`);
+    history.push(`/patient/${user.uid}/profile`);
+    window.location.reload();
   };
 
   return (

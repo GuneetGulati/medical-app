@@ -56,6 +56,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
 
   const sign = (event) => {
+    console.log(username);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
