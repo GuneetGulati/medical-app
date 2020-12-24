@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const patientSchema = mongoose.Schema({
     id:String,
-    firstName:String,
+    name:String,
     lastName:String,
     age:Number,
     gender:String,
     phone:Number,
-    Address:String
+    address:String
 });
 
 export default mongoose.model("patient",patientSchema)
