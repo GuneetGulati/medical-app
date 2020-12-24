@@ -1,8 +1,19 @@
-.chat {
+.main {
   display: flex;
   flex-direction: column;
   flex: 0.84;
   background-color: #ffffff;
   height: 100vh;
+  justify-content: space-between; 
+}
+
+.mainbod {
+  margin-left: 15%;
+  margin-right: 15%;
  
+}
+
+.heading {
+  padding: 20px;
+  color: gray;
 }

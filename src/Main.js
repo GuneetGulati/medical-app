@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { setDetails, selectUser } from "./features/user/userSlice";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,83 +24,158 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
   },
   large: {
-    width: theme.spacing(15),
-    height: theme.spacing(15),
+    width: theme.spacing(13),
+    height: theme.spacing(13),
   },
 }));
 
-const Main = () => {
+const Main = ({ iid }) => {
   const clases = useStyles();
   const user = useSelector(selectUser);
-  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("")
-  const [phone,setPhone] =useState("");
-  const [address , setAddress] = useState("");
+  const [age, setAge] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [check, setCheck] = useState(2);
   const dispatch = useDispatch();
 
-  // firstName:String,
-  // lastName:String,
-  // age:Number,
-  // gender:String,
-  // phone:Number,
-  // Address:String
+  const patient = async (event) => {
+    event.preventDefault();
+    await axios.get("/patient").then((res) => {
+      res.data.map((resi) => {
+        if (resi.id == iid) {
+          console.log("first", resi);
+            
+          setName(resi.name);
+          setLastName(resi.lastName);
+          setAge(resi.age);
+          setGender(resi.gender);
+          setPhone(resi.phone);
+          setAddress(resi.address);
+        }
+      });
+    });
+  };
+
+  useEffect(() => {
+    
+    
+    
+  }, []);
+
 
   const handlesub = (event) => {
     event.preventDefault();
 
-    console.log(user.uid);
+    console.log(gender);
     axios.post(`/patient/${user.uid}/profile`, {
-      email: email,
       name: name,
+      lastName: lastName,
+      age: age,
+      gender: gender,
+      phone: phone,
+      address: address,
     });
-    
+
     dispatch(
       setDetails({
-        email: email,
         name: name,
+        lastName: lastName,
+        age: age,
+        gender: gender,
+        phone: phone,
+        address: address,
       })
     );
   };
 
+  const chng = (event) => {
+    setGender(event.target.value);
+  };
+
   return (
-    <div className="chat">
+    <div className="main">
       <Header />
-      <Avatar
-        alt="Guneet"
-        src="/static/images/avatar/1.jpg"
-        className={clases.large}
-      />
-      <form>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              name="patient_email"
-              placeholder="Enter email"
-            />
-          </Form.Group>
+      <h2 className="heading">Edit Profile</h2>
+      <div className="mainbod">
+        
+        <Avatar
+          alt="Guneet"
+          src="/static/images/avatar/1.jpg"
+          className={clases.large}
+        />
+        <Link onClick={patient} className>
+          Access previous details
+        </Link>
+        <form>
+          <Form>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="First Name"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name"
-              name="patient_name"
-            />
-          </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Last Name"
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Age</Form.Label>
+              <Form.Control
+                type="text"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Age"
+              />
+            </Form.Group>
 
-          <Button onClick={handlesub} variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </form>
+            <Form.Group controlId="exampleForm.SelectCustom">
+              <Form.Label>Gender</Form.Label>
+              <Form.Control onChange={chng} value={gender} as="select" custom>
+                <option>Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Address</Form.Label>
+              <Form.Control
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Address"
+              />
+            </Form.Group>
+
+            <Button onClick={handlesub} variant="primary" type="submit">
+              Save Changes
+            </Button>
+          </Form>
+        </form>
+      </div>
     </div>
   );
 };
