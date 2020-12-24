@@ -15,7 +15,6 @@ export const userSlice = createSlice({
     },
     setDetails: (state, action) => {
       state.details = action.payload;
-      
     },
   },
 });
