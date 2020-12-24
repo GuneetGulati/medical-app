@@ -15,12 +15,12 @@ import Doctors from "./Doctors"
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-   
+   const [iid, setiid] = useState("");
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         console.log(authUser);
-
+        setiid(authUser.uid);
         dispatch(
           login({
             uid: authUser.uid,
@@ -55,7 +55,7 @@ const App = () => {
 
           <Route path="/patient/:nme/profile">
             <Sidebar />
-            <Main />
+            <Main iid={iid}/>
           </Route>
 
           <Route path="/doctors">
