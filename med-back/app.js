@@ -1,13 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-
+import dbModel from "./dbModel.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 const connection_url =
-  "mongodb+srv://admin:CowhCQomQkjvQiB4@cluster0.prd2x.mongodb.net/medDbB?retryWrites=true&w=majority";
+  "mongodb+srv://admin:CowhCQomQkjvQiB4@cluster0.prd2x.mongodb.net/medDB?retryWrites=true&w=majority";
 
 mongoose.connect(connection_url, {
   useCreateIndex: true,
@@ -22,8 +22,35 @@ mongoose.connection.once("open", () => {
 app.get("/", (req, res) => {
   res.send("hello world");
 });
+app.get("/patient", (req, res) => {
+  
+  dbModel.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+      
+    }
+  });
+ 
+});
+
 app.post("/patient/:id/profile", (req, res) => {
-  console.log(res);
+  const id = req.params;
+  const body = req.body;
+  const rep = Object.assign(id, body);
+
+
+  
+  
+    dbModel.update(rep, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+
 });
 
 app.listen(8080, () => {
