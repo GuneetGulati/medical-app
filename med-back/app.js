@@ -39,10 +39,22 @@ app.post("/patient/:id/profile", (req, res) => {
   const id = req.params;
   const body = req.body;
   const rep = Object.assign(id, body);
-
-
+console.log(rep);
+  if(rep.check==0){
+    rep.check=2;
+    console.log(rep);
+    console.log("crttt");
+    dbModel.create(rep, (err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(201).send(data);
+      }
+    });
+  }
   
-  
+  if(body.check==2){
+    console.log("updatt")
     dbModel.update(rep, (err, data) => {
     if (err) {
       res.status(500).send(err);
@@ -50,7 +62,7 @@ app.post("/patient/:id/profile", (req, res) => {
       res.status(201).send(data);
     }
   });
-
+  }
 });
 
 app.listen(8080, () => {
