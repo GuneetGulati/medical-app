@@ -38,7 +38,7 @@ const Main = ({ iid }) => {
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [check, setCheck] = useState(2);
+  const [check, setCheck] = useState(0);
   const dispatch = useDispatch();
 
   const patient = async (event) => {
@@ -54,16 +54,11 @@ const Main = ({ iid }) => {
           setGender(resi.gender);
           setPhone(resi.phone);
           setAddress(resi.address);
+          setCheck(resi.check);
         }
       });
     });
   };
-
-  useEffect(() => {
-    
-    
-    
-  }, []);
 
 
   const handlesub = (event) => {
@@ -77,6 +72,7 @@ const Main = ({ iid }) => {
       gender: gender,
       phone: phone,
       address: address,
+      check:check
     });
 
     dispatch(
