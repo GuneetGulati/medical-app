@@ -9,6 +9,7 @@ const patientSchema = mongoose.Schema({
   phone: Number,
   address: String,
   check: Number,
+   
 });
 
 export default mongoose.model("patient", patientSchema);
