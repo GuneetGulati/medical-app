@@ -58,7 +58,8 @@ const App = () => {
             <Main iid={iid}/>
           </Route>
 
-          <Route path="/doctors">
+          <Route path="/patient/:nme/doctors">
+            <Sidebar />
             <Doctors />
           </Route>
 
