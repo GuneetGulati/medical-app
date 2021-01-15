@@ -1,0 +1,16 @@
+.doctors {
+    display: flex;
+    flex-direction: column;
+    flex: 0.84;
+    background-color: #ffffff;
+    height: 100vh;
+  }
+  
+.dochead {
+    padding: 20px;
+    color: gray;
+  }
+
+  .doctorsbod{
+      
+  }
