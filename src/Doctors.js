@@ -1,16 +1,20 @@
 import React from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { selectDetails, selectUser } from "./features/user/userSlice";
+import Header from "./Header";
+import "./Doctors.css";
+import Doctor from "./doctor";
 
 function Doctors() {
-  const details = useSelector(selectDetails);
 
   return (
-    <div>
-      <p>{details?.email}</p>
+    <div className="doctors">
+      <Header/>
+     <h2 className="dochead">Doctors</h2> 
+     <Doctor/>
     </div>
   );
+
 }
 
 export default Doctors;
