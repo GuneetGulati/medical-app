@@ -5,33 +5,36 @@ import Main from "./Main";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./features/user/userSlice";
-import {auth} from "./firebase";
-import { Link} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Doctors from "./Doctors"
+import { auth } from "./firebase";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Doctors from "./Doctors";
+import LoginDoc from "./Doctor/Logindoc";
+import SignUpDoc from "./Doctor/signupdoc";
+import { useStateValue } from "./Doctor/StateProvider";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-   const [iid, setiid] = useState("");
+
+  const [iid, setiid] = useState("");
+  const [state, dispatch] = useStateValue();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser);
+        console.log(authUser.displayName);
         setiid(authUser.uid);
-        dispatch(
-          login({
-            uid: authUser.uid,
-            photo: authUser.photoURL,
-            email: authUser.email,
-            displayName: authUser.displayName,
-          })
-        );
-        
-      } else {
-        dispatch(logout());
+        dispatch({
+          type:'SET_USER',
+          user:authUser
+        })
+
+      } 
+
+      else {
+        dispatch({
+          type:'SET_USER',
+          user:null
+        })
       }
     });
 
@@ -39,7 +42,6 @@ const App = () => {
       unsubscribe();
     };
   }, [dispatch]);
-
 
   return (
     <Router>
@@ -53,9 +55,17 @@ const App = () => {
             <SignUp />
           </Route>
 
+          <Route path="/logindoc">
+            <LoginDoc />
+          </Route>
+
+          <Route path="/signupdoc">
+            <SignUpDoc />
+          </Route>
+
           <Route path="/patient/:nme/profile">
             <Sidebar />
-            <Main iid={iid}/>
+            <Main iid={iid} />
           </Route>
 
           <Route path="/patient/:nme/doctors">
@@ -64,14 +74,28 @@ const App = () => {
           </Route>
 
           <Route path="/" exact>
-           
-            <Link className="one" to="/login">Login</Link>
-            <Link className="two" to="/signup">Signup</Link>
+            <h3>For Patient</h3>
+            <Link className="one" to="/login">
+              Login
+            </Link>
+            <Link className="two" to="/signup">
+              Signup
+            </Link>
+
+            <h3>For Doctors</h3>
+            <Link className="one" to="/logindoc">
+              Login
+            </Link>
+            <Link className="two" to="/signupdoc">
+              Signup
+            </Link>
           </Route>
         </Switch>
       </div>
     </Router>
   );
-  }
+};
 
 export default App;
+
+

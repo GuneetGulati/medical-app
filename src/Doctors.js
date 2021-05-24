@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectDetails, selectUser } from "./features/user/userSlice";
 import Header from "./Header";
 import "./Doctors.css";
 import Doctor from "./doctor";

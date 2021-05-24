@@ -1,15 +1,14 @@
 import React from "react";
 import "./SidebarChannel.css";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./features/user/userSlice";
+import { useStateValue } from "./Doctor/StateProvider";
 
 function SidebarChannel({ id, channelName, e }) {
   const history = useHistory();
-  const user = useSelector(selectUser);
+  const [state, dispatch] = useStateValue();
 
   const cHandler = () => {
-    history.push(`/patient/${user.uid}/${e}`);
+    history.push(`/patient/${state.user.uid}/${e}`);
   };
 
   return (

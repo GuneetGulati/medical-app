@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,9 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as Lin } from "react-router-dom";
 import { auth } from "./firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./features/user/userSlice";
 import { useHistory } from "react-router-dom";
+import { useStateValue } from "./Doctor/StateProvider";
 
 function Copyright() {
   return (
@@ -65,10 +64,8 @@ export default function SignInSide() {
   const classes = useStyles();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
   const history = useHistory();
-
+  const [state, dispatch] = useStateValue();
 
   const signIn = (event) => {
     event.preventDefault();
@@ -76,7 +73,7 @@ export default function SignInSide() {
     auth.signInWithEmailAndPassword(email, password).catch((err) => {
       alert(err.message);
     });
-    history.push(`/patient/${user.uid}/profile`);
+    history.push(`/patient/${state.user.uid}/profile`);
     window.location.reload();
   };
 

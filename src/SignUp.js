@@ -14,8 +14,7 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import { auth } from "./firebase";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./features/user/userSlice";
+import { useStateValue } from "./Doctor/StateProvider";
 
 function Copyright() {
   return (
@@ -53,7 +52,7 @@ const SignUp = () => {
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const history = useHistory();
-  const dispatch = useDispatch();
+  const [state, dispatch] = useStateValue();
 
   const sign = (event) => {
     console.log(username);
@@ -65,7 +64,10 @@ const SignUp = () => {
         });
       })
       .catch((err) => alert(err.message));
-    dispatch(logout());
+    dispatch({
+          type:'SET_USER',
+          user:null
+    })
     history.push("/login");
   };
 

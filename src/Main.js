@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Main.css";
 import Header from "./Header";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,10 +7,9 @@ import { makeStyles as makesStyles } from "@material-ui/core/styles";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from "react-redux";
-import { setDetails, selectUser } from "./features/user/userSlice";
 import axios from "./axios";
 import { Link } from "react-router-dom";
+import { useStateValue } from "./Doctor/StateProvider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Main = ({ iid }) => {
   const clases = useStyles();
-  const user = useSelector(selectUser);
   const [gender, setGender] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -39,52 +37,56 @@ const Main = ({ iid }) => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [check, setCheck] = useState(0);
-  const dispatch = useDispatch();
+  const [state, dispatch] = useStateValue();
 
   const patient = async (event) => {
     event.preventDefault();
-    await axios.get("/patient").then((res) => {
-      res.data.map((resi) => {
-        if (resi.id == iid) {
+    await axios.get("/patient").then((resi) => {
+      for (var i = 0; i < resi.data.length; i++) {
+        if (resi.data[i].id === state.user.uid) {
           console.log("first", resi);
-            
-          setName(resi.name);
-          setLastName(resi.lastName);
-          setAge(resi.age);
-          setGender(resi.gender);
-          setPhone(resi.phone);
-          setAddress(resi.address);
-          setCheck(resi.check);
+
+          setName(resi.data[i].name);
+          setLastName(resi.data[i].lastName);
+          setAge(resi.data[i].age);
+          setGender(resi.data[i].gender);
+          setPhone(resi.data[i].phone);
+          setAddress(resi.data[i].address);
+          setCheck(resi.data[i].check);
+          break;
         }
-      });
+        
+      };
     });
   };
-
 
   const handlesub = (event) => {
     event.preventDefault();
 
     console.log(gender);
-    axios.post(`/patient/${user.uid}/profile`, {
+    axios.post(`/patient/${state.user.uid}/profile`, {
       name: name,
       lastName: lastName,
       age: age,
       gender: gender,
       phone: phone,
       address: address,
-      check:check
+      check: check,
     });
 
-    dispatch(
-      setDetails({
+    dispatch({
+      type: "SET_DETAILS",
+      details: {
         name: name,
         lastName: lastName,
         age: age,
         gender: gender,
         phone: phone,
         address: address,
-      })
-    );
+      },
+    });
+
+    window.location.reload();
   };
 
   const chng = (event) => {
@@ -96,13 +98,12 @@ const Main = ({ iid }) => {
       <Header />
       <h2 className="heading">Edit Profile</h2>
       <div className="mainbod">
-        
         <Avatar
           alt="Guneet"
           src="/static/images/avatar/1.jpg"
           className={clases.large}
         />
-        <Link onClick={patient} className>
+        <Link to='/#' onClick={patient} className>
           Access previous details
         </Link>
         <form>
