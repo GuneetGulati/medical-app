@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Doctors from "./Doctors";
 import LoginDoc from "./Doctor/Logindoc";
-import SignUpDoc from "./Doctor/signupdoc";
+import SignUpDoc from "./Doctor/Signupdoc";
 import { useStateValue } from "./Doctor/StateProvider";
 
 const App = () => {
