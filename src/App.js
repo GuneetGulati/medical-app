@@ -14,6 +14,7 @@ import SignUpDoc from "./Doctor/Signupdoc";
 import { useStateValue } from "./Doctor/StateProvider";
 import DocProfile from "./Doctor/DocProfile";
 import Docbar from "./Doctor/Sidebar/Docbar";
+import PublicProfile from "./PublicProfile"
 
 const App = () => {
   const [iid, setiid] = useState("");
@@ -76,10 +77,17 @@ const App = () => {
             <SignUpDoc />
           </Route>
 
+          
           <Route path="/doctor/:nme/profile">
             <Docbar />
             <DocProfile />
           </Route>
+
+          <Route path="/doctor/:nme">
+            <Sidebar />
+            <PublicProfile />
+          </Route>
+
 
           <Route path="/patient/:nme/profile">
             <Sidebar />

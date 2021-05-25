@@ -11,6 +11,8 @@ const doctorSchema = mongoose.Schema({
   address: String,
   check: Number,
   specone: String,
+  description:String,
+  location:String,
 });
 
 export default mongoose.model("doctor", doctorSchema);

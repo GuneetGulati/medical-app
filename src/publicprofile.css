@@ -1,0 +1,15 @@
+.full{
+    display: flex;
+}
+.sec{
+    padding: 80px;
+}
+
+.hd{
+    color: rgb(177, 167, 167);
+}
+
+.but{
+    font-size: 20px;
+    background-color: grey;
+}

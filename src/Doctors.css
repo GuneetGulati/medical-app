@@ -11,6 +11,8 @@
     color: gray;
   }
 
-  .doctorsbod{
-      
-  }
+  .home {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
