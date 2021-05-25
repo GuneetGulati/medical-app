@@ -13,7 +13,6 @@ import LoginDoc from "./Doctor/Logindoc";
 import SignUpDoc from "./Doctor/Signupdoc";
 import { useStateValue } from "./Doctor/StateProvider";
 import DocProfile from "./Doctor/DocProfile";
-import { auth as authen } from "./firebase";
 import Docbar from "./Doctor/Sidebar/Docbar";
 
 const App = () => {

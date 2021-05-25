@@ -5,10 +5,10 @@ import { useStateValue } from "../StateProvider";
 
 function DocbarChannel({ id, channelName, e }) {
   const history = useHistory();
-  const [state, dispatch] = useStateValue();
+  const [state] = useStateValue();
 
   const cHandler = () => {
-    history.push(`/doctor/${state.user.uid}/${e}`);
+    history.push(`/doctor/${state.userdoc.uid}/${e}`);
   };
 
   return (
