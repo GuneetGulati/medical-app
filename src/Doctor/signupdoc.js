@@ -57,8 +57,8 @@ const Signupdoc = () => {
       })
       .catch((err) => alert(err.message));
     dispatch({
-          type:'SET_USER',
-          user:null
+          type:'SET_DOCTOR',
+          userdoc:null
     })
     history.push("/logindoc");
   };

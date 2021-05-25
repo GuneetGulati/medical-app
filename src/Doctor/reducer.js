@@ -1,6 +1,7 @@
 export const initialState = {
     user:null,
-    details:{}
+    details:{},
+    docuser:null
 };
 
 
@@ -19,6 +20,11 @@ const reducer = (state , action) => {
                 details:action.details
             } ; 
 
+        case 'SET_DOCTOR':
+            return{
+                ...state,
+                userdoc:action.userdoc
+            } ; 
 
         default:
             return state;

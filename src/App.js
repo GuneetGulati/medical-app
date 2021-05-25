@@ -12,6 +12,9 @@ import Doctors from "./Doctors";
 import LoginDoc from "./Doctor/Logindoc";
 import SignUpDoc from "./Doctor/Signupdoc";
 import { useStateValue } from "./Doctor/StateProvider";
+import DocProfile from "./Doctor/DocProfile";
+import { auth as authen } from "./firebase";
+import Docbar from "./Doctor/Sidebar/Docbar";
 
 const App = () => {
 
@@ -43,6 +46,30 @@ const App = () => {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    const unsubscribe = authen.onAuthStateChanged((authUser) => {
+      if (authUser) {
+
+        dispatch({
+          type:'SET_DOCTOR',
+          userdoc:authUser
+        })
+
+      } 
+
+      else {
+        dispatch({
+          type:'SET_DOCTOR',
+          userdoc:null
+        })
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch]);
+
   return (
     <Router>
       <div className="app">
@@ -61,6 +88,11 @@ const App = () => {
 
           <Route path="/signupdoc">
             <SignUpDoc />
+          </Route>
+
+          <Route path="/doctor/:nme/profile">
+            <Docbar/>
+            <DocProfile />
           </Route>
 
           <Route path="/patient/:nme/profile">
