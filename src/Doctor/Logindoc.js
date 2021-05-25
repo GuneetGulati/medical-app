@@ -16,7 +16,6 @@ import { auth as authen } from "./docfirebase";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
@@ -60,11 +59,14 @@ export default function Logindoc() {
   const signIn = (event) => {
     event.preventDefault();
 
-    authen.signInWithEmailAndPassword(email, password).catch((err) => {
-      alert(err.message);
-    });
-    history.push(`/doctor/${state.user.uid}/profile`);
-    window.location.reload();
+    if (state.userdoc.photoURL === "doctor") {
+      authen.signInWithEmailAndPassword(email, password).catch((err) => {
+        alert(err.message);
+      });
+
+      history.push(`/doctor/${state.user.uid}/profile`);
+      window.location.reload();
+    } 
   };
 
   return (
@@ -124,7 +126,6 @@ export default function Logindoc() {
                 <Grid item>{"Don't have an account? Sign Up"}</Grid>
               </Lin>
             </Grid>
-            
           </form>
         </div>
       </Grid>

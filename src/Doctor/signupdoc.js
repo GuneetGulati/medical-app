@@ -53,6 +53,7 @@ const Signupdoc = () => {
       .then((authUser) => {
         return authUser.user.updateProfile({
           displayName: username,
+          photoURL:"doctor"
         });
       })
       .catch((err) => alert(err.message));

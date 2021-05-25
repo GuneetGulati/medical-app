@@ -16,6 +16,7 @@ import { auth } from "./firebase";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./Doctor/StateProvider";
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -61,6 +62,7 @@ const SignUp = () => {
       .then((authUser) => {
         return authUser.user.updateProfile({
           displayName: username,
+          photoURL:"patient"
         });
       })
       .catch((err) => alert(err.message));

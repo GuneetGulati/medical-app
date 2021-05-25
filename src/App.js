@@ -17,27 +17,23 @@ import { auth as authen } from "./firebase";
 import Docbar from "./Doctor/Sidebar/Docbar";
 
 const App = () => {
-
   const [iid, setiid] = useState("");
   const [state, dispatch] = useStateValue();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser.displayName);
+        console.log(authUser);
         setiid(authUser.uid);
         dispatch({
-          type:'SET_USER',
-          user:authUser
-        })
-
-      } 
-
-      else {
+          type: "SET_USER",
+          user: authUser,
+        });
+      } else {
         dispatch({
-          type:'SET_USER',
-          user:null
-        })
+          type: "SET_USER",
+          user: null,
+        });
       }
     });
 
@@ -49,19 +45,15 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = authen.onAuthStateChanged((authUser) => {
       if (authUser) {
-
         dispatch({
-          type:'SET_DOCTOR',
-          userdoc:authUser
-        })
-
-      } 
-
-      else {
+          type: "SET_DOCTOR",
+          userdoc: authUser,
+        });
+      } else {
         dispatch({
-          type:'SET_DOCTOR',
-          userdoc:null
-        })
+          type: "SET_DOCTOR",
+          userdoc: null,
+        });
       }
     });
 
@@ -91,7 +83,7 @@ const App = () => {
           </Route>
 
           <Route path="/doctor/:nme/profile">
-            <Docbar/>
+            <Docbar />
             <DocProfile />
           </Route>
 
@@ -129,5 +121,3 @@ const App = () => {
 };
 
 export default App;
-
-

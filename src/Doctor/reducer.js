@@ -1,7 +1,7 @@
 export const initialState = {
     user:null,
     details:{},
-    docuser:null
+    userdoc:null
 };
 
 
