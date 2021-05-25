@@ -22,45 +22,40 @@ const App = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
+      
         console.log(authUser);
+        console.log(authUser.photoURL);
         setiid(authUser.uid);
+        if (authUser.photoURL === "patient") {
         dispatch({
           type: "SET_USER",
           user: authUser,
         });
-      } else {
+
         dispatch({
-          type: "SET_USER",
+          type: "SET_DOCTOR",
           user: null,
         });
       }
-    });
 
-    return () => {
-      unsubscribe();
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    const unsubscribe = authen.onAuthStateChanged((authUser) => {
-      if (authUser) {
+      if (authUser.photoURL === "doctor") {
         dispatch({
           type: "SET_DOCTOR",
           userdoc: authUser,
         });
-      } else {
+      
         dispatch({
-          type: "SET_DOCTOR",
-          userdoc: null,
+          type: "SET_USER",
+          user: null,
         });
-      }
+      } 
+      
     });
 
     return () => {
       unsubscribe();
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <Router>

@@ -69,14 +69,12 @@ export default function SignInSide() {
 
   const signIn = (event) => {
     event.preventDefault();
-    
-    if (state.userdoc.photoURL === "patient") {
       auth.signInWithEmailAndPassword(email, password).catch((err) => {
         alert(err.message);
       });
       history.push(`/patient/${state.user.uid}/profile`);
       window.location.reload();
-    } 
+    
   };
 
   return (

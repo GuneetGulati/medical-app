@@ -58,15 +58,12 @@ export default function Logindoc() {
 
   const signIn = (event) => {
     event.preventDefault();
-
-    if (state.userdoc.photoURL === "doctor") {
-      authen.signInWithEmailAndPassword(email, password).catch((err) => {
-        alert(err.message);
-      });
-
-      history.push(`/doctor/${state.user.uid}/profile`);
+    authen.signInWithEmailAndPassword(email, password).catch((err) => {
+      alert(err.message);
+    });
+      history.push(`/doctor/${state.userdoc.uid}/profile`);
       window.location.reload();
-    } 
+  
   };
 
   return (

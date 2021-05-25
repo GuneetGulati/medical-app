@@ -1,7 +1,6 @@
 import React from "react";
 import "./Docbar.css";
 import DocbarChannel from "./DocbarChannel";
-import { useStateValue } from "../StateProvider";
 
 const Docbar = () => {
   return (
@@ -12,9 +11,9 @@ const Docbar = () => {
 
       <div className="sidebar__channels">
         <DocbarChannel channelName={"Profile"} e={"profile"}/>
-        <DocbarChannel channelName={"Doctors"} e={"doctors"}/>
-        <DocbarChannel channelName={"Prescriptions"} e={"prescriptions"} />
-        <DocbarChannel channelName={"Past Consultations"} e={"past consultations"} />
+        <DocbarChannel channelName={"Attended Patients"} e={"attended"}/>
+        <DocbarChannel channelName={"Pending Patients"} e={"pending"} />
+        <DocbarChannel channelName={"Video Conference"} e={"meeting"} />
         <DocbarChannel channelName={"Discussion"} e={"discussion"}  />
       </div>
     </div>
